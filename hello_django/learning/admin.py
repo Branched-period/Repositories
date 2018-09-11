@@ -10,6 +10,9 @@ class CustomerAdmin(admin.ModelAdmin):
     raw_id_fields = ("consult_course",)
     filter_horizontal = ("tags",)
 
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'name')
+
 admin.site.register(models.Customer, CustomerAdmin)
 admin.site.register(models.Tag)
 admin.site.register(models.CustomerFollowUp)
@@ -20,6 +23,6 @@ admin.site.register(models.CourseRecord)
 admin.site.register(models.StudyRecord)
 admin.site.register(models.Enrollment)
 admin.site.register(models.Payment)
-admin.site.register(models.UserProfile)
+admin.site.register(models.UserProfile, UserProfileAdmin)
 admin.site.register(models.Role)
 admin.site.register(models.Menu)

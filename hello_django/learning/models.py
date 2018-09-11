@@ -8,7 +8,7 @@ class Customer(models.Model):
     name = models.CharField(max_length=32, blank=True, null=True)
     qq = models.CharField(max_length=64, unique=True)
     qq_name = models.CharField(max_length=64, blank=True, null=True)
-    photo = models.CharField(max_length=64, blank=True, null=True)
+    phone = models.CharField(max_length=64, blank=True, null=True)
     # 通过数字来链接字符 减少字符空间 加速运行速度
     source_choices = ((0, "别人介绍"),
                       (1, "QQ群"),
