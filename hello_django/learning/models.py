@@ -24,7 +24,7 @@ class Customer(models.Model):
 
     consult_course = models.ForeignKey("Course", verbose_name="咨询课程", on_delete=models.CASCADE)
     content = models.TextField(verbose_name="咨询详情")
-    tags = models.ManyToManyField("Tag", blank=True, null=True)
+    tags = models.ManyToManyField("Tag", blank=True)
     consultant = models.ForeignKey("UserProfile", verbose_name="课程顾问", on_delete=models.CASCADE)
     memo = models.TextField(blank=True, null=True)
     date = models.DateTimeField(auto_now_add=True)
@@ -191,22 +191,33 @@ class Payment(models.Model):
         return "%s %s" % (self.customer, self.amount)
 
     class Meta:
-        verbose_name_plural = "班级表"
+        verbose_name_plural = "财务表"
 
 class UserProfile(models.Model):
     # 账户表
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=32)
-    roles = models.ManyToManyField("Role", blank=True, null=True)
+    roles = models.ManyToManyField("Role", blank=True,)
 
+    def __str__(self):
+        return self.name
 
 
 class Role(models.Model):
     # 角色表
     name = models.CharField(max_length=32, unique=True)
+    menus = models.ManyToManyField("Menu", blank=True)
 
     def __str__(self):
         return self.name
 
     class Meta:
         verbose_name_plural = "角色表"
+
+class Menu(models.Model):
+    # 不同用户的不同菜单名
+    name = models.CharField(max_length=32)
+    url_name = models.CharField(max_length=64)
+
+    def __str__(self):
+        return self.name
